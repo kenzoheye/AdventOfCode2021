@@ -7,21 +7,41 @@ def read_data():
 def parse_data(data: str):
     return list(map(lambda x: int(x), data.split("\n")))
 
-def count_increases(parsed_data: List[int]):
-    increases = 0
-    for i in range(len(parsed_data)):
+def make_sums(data: List[int]):
+    summed_data = []
+
+    for i in range(len(data)):
         try:
-            if parsed_data[i] < parsed_data[i + 1]:
+            new_value = data[i] + data[i + 1] + data[i + 2]
+            summed_data.append(new_value) 
+        except IndexError:
+            break
+
+    return summed_data
+
+def count_increases(data: List[int]):
+    increases = 0
+    for i in range(len(data)):
+        try:
+            if data[i] < data[i + 1]:
                 increases += 1
         except IndexError:
-            pass
+            break
 
     return increases
 
-def run():
+def run_part_one():
     data = read_data()
     parsed_data = parse_data(data)
     increases = count_increases(parsed_data)
-    print(increases)
+    print(f"Part 1: {increases}")
 
-run()
+def run_part_two():
+    data = read_data()
+    parsed_data = parse_data(data)
+    summed_data = make_sums(parsed_data)
+    increases = count_increases(summed_data)
+    print(f"Part 2: {increases}")
+
+run_part_one()
+run_part_two()
